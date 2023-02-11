@@ -2,7 +2,9 @@ import streamlit as st
 import pydeck as pdk
 import pandas as pd
 
-stationFrame = pd.read_csv('stationData.csv')
+# stationURL = "https://raw.githubusercontent.com/dogukankaratas/AccelerationDataAnalysis/main/stationData.csv"
+# stationFrame = pd.read_csv(stationURL, sep=';')
+stationFrame = pd.read_csv('stationData.csv', sep=';')
 
 layer = pdk.Layer(
     'HexagonLayer',  
