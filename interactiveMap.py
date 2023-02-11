@@ -4,7 +4,9 @@ import pandas as pd
 
 # stationURL = "https://raw.githubusercontent.com/dogukankaratas/AccelerationDataAnalysis/main/stationData.csv"
 # stationFrame = pd.read_csv(stationURL, sep=';')
-stationFrame = pd.read_csv('stationData.csv', sep=';')
+# stationFrame = pd.read_excel('stationData.xlsx')
+# stationFrame.to_csv('stationData.csv', ',')
+stationFrame = pd.read_csv('stationData.csv')
 
 layer = pdk.Layer(
     'HexagonLayer',  
