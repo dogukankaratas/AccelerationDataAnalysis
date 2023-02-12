@@ -1,4 +1,10 @@
-import pandas as pd
+import streamlit as st
 
-first = pd.read_excel('stationData.xlsx')
-first.to_csv('stationData.csv', sep=';')
+graphContent = st.multiselect("Grafik", ["Tasarım Spektrumu (DD1)", 
+                              "Tasarım Spektrumu (DD2)",
+                              "Tepki Spektrumu (E-W)",
+                              "Tepki Spektrumu (N-E)",
+                              ])
+
+if "Tasarım Spektrumu (DD2)" in graphContent:
+    st.write("YES")
