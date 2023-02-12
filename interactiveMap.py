@@ -22,7 +22,7 @@ layer = pdk.Layer(
 
 # Set the viewport location
 view_state = pdk.ViewState(
-    longitude=36, latitude=40, zoom=4.5
+    longitude=36, latitude=40, zoom=6
 )
 # Combined all of it and render a viewport
 r = pdk.Deck(
@@ -35,7 +35,7 @@ st.pydeck_chart(r)
 inputCol, accGraphCol = st.columns([1, 2])
 with inputCol:
     provinces = set(stationFrame['Province'].to_list())
-    selectedProvince = st.selectbox('Şehir', provinces, 0)
+    selectedProvince = st.selectbox('Şehir', provinces, 4)
                 
     isSelectedProvince = stationFrame['Province'] == selectedProvince
     filteredFrame = stationFrame[isSelectedProvince]
