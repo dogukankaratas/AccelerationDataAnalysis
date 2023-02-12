@@ -22,7 +22,7 @@ layer = pdk.Layer(
 
 # Set the viewport location
 view_state = pdk.ViewState(
-    longitude=36, latitude=40, zoom=6
+    longitude=36, latitude=38, zoom=6
 )
 # Combined all of it and render a viewport
 r = pdk.Deck(
