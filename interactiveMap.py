@@ -35,7 +35,8 @@ st.pydeck_chart(r)
 inputCol, accGraphCol = st.columns([1, 2])
 with inputCol:
     provinces = set(stationFrame['Province'].to_list())
-    selectedProvince = st.selectbox('Şehir', provinces, 4)
+    provinces = [x for x in sorted(provinces)]
+    selectedProvince = st.selectbox('Şehir', provinces, 2)
                 
     isSelectedProvince = stationFrame['Province'] == selectedProvince
     filteredFrame = stationFrame[isSelectedProvince]
