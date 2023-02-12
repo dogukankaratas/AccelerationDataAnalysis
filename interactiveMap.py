@@ -6,7 +6,7 @@ import targetSpectrumCreator
 import numpy as np
 from ascReader import ascReader
 
-st.set_page_config("Deprem Grafikler", layout='wide')
+st.set_page_config("Kahramanmaraş Depremi Verileri", layout='wide')
 
 stationFrame = pd.read_csv('stationData.csv', sep=';')
 accFrame = pd.read_excel('1_Spectral_Acceleration_Stations.xlsx')
