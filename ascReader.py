@@ -38,6 +38,3 @@ accDefaultFig.add_trace(go.Scatter(
         y = acc['acc'],
         line=dict(color='blue')
     ))
-import streamlit as st
-st.write("AAA")
-st.plotly_chart(accDefaultFig)
