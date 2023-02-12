@@ -15,7 +15,7 @@ layer = pdk.Layer(
     'HexagonLayer',  
     stationFrame,
     get_position=['Longitude', 'Latitude'],
-    auto_highlight=True,
+    auto_highlight=False,
     radius=7000,
     pickable=True,
 )
@@ -35,7 +35,7 @@ st.pydeck_chart(r)
 inputCol, accGraphCol = st.columns([1, 2])
 with inputCol:
     provinces = set(stationFrame['Province'].to_list())
-    selectedProvince = st.selectbox('Şehir', provinces)
+    selectedProvince = st.selectbox('Şehir', provinces, 0)
                 
     isSelectedProvince = stationFrame['Province'] == selectedProvince
     filteredFrame = stationFrame[isSelectedProvince]
@@ -50,7 +50,7 @@ with inputCol:
             
         st.info("Seçilen istasyon için zemin bilgisi bulunmamaktadır. Bir zemin sınıfı belirtin.")
             
-        soilType = st.selectbox('Zemin Sınıfı', ["ZA", "ZB", "ZC", "ZD", "ZE"])
+        soilType = st.selectbox('Zemin Sınıfı', ["ZA", "ZB", "ZC", "ZD", "ZE"], 2)
 
         selectedLatitude = filteredStationFrame['Latitude'].to_list()[0]
         selectedLongitude = filteredStationFrame['Longitude'].to_list()[0]
