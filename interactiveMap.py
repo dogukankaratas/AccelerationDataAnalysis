@@ -2,10 +2,7 @@ import streamlit as st
 import pydeck as pdk
 import pandas as pd
 
-# stationURL = "https://raw.githubusercontent.com/dogukankaratas/AccelerationDataAnalysis/main/stationData.csv"
-# stationFrame = pd.read_csv(stationURL, sep=';')
 # stationFrame = pd.read_excel('stationData.xlsx')
-# stationFrame.to_csv('stationData.csv', ',')
 stationFrame = pd.read_csv('stationData.csv')
 
 layer = pdk.Layer(
@@ -26,6 +23,11 @@ view_state = pdk.ViewState(
 r = pdk.Deck(
     map_style="mapbox://styles/mapbox/light-v9",
     initial_view_state=view_state,
-    layers=[layer]
+    layers=[layer],
+    tooltip={
+            "html": "<b>Istasyon:</b> {ID}",
+            "style": {"color": "white"},
+        },
+    
 )
 st.pydeck_chart(r)
