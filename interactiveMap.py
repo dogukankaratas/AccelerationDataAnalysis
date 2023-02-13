@@ -83,7 +83,7 @@ accDefaultFig.update_yaxes(
             )
 
 accDefaultFig.update_layout(width=980,height=500,
-                            title_text='N-S Bileşeni', title_x=0.5)
+                            title_text='N-S Bileşeni', title_x=0.5, paper_bgcolor="white")
 
 defaultFig = go.Figure()
 defaultFig.update_xaxes(
@@ -105,7 +105,7 @@ defaultFig.update_yaxes(
             )
 
 defaultFig.update_layout(showlegend=True, template=None,width=750,height=500,
-                                    title_text='Yatay Spektrum', title_x=0.5, legend=dict(
+                                    title_text='Yatay Spektrum', title_x=0.5, paper_bgcolor="white",legend=dict(
                                                                     yanchor="top",
                                                                     x = 1,
                                                                     xanchor="right")
@@ -131,7 +131,7 @@ defaultFigVer.update_yaxes(
             )
 
 defaultFigVer.update_layout(showlegend=True, template=None,width=750,height=500,
-                                    title_text='Düşey Spektrum', title_x=0.5, legend=dict(
+                                    title_text='Düşey Spektrum', title_x=0.5, paper_bgcolor="white", legend=dict(
                                                                     yanchor="top",
                                                                     x = 1,
                                                                     xanchor="right")
@@ -168,7 +168,7 @@ if selectedComponent == 'E-W':
                 )
 
     accDefaultFig.update_layout(width=980,height=500,
-                                title_text='E-W Bileşeni', title_x=0.5)
+                                title_text='E-W Bileşeni', title_x=0.5, paper_bgcolor="white")
 elif selectedComponent == 'N-S':
     proData = ascReader("20230206011732", selectedStation, "N")
     accDefaultFig = go.Figure()
@@ -188,7 +188,7 @@ elif selectedComponent == 'N-S':
                 )
 
     accDefaultFig.update_layout(width=980,height=500,
-                                title_text='N-S Bileşeni', title_x=0.5)
+                                title_text='N-S Bileşeni', title_x=0.5, paper_bgcolor="white")
 elif selectedComponent == 'U-D':
     proData = ascReader("20230206011732", selectedStation, "U")
     accDefaultFig = go.Figure()
@@ -208,7 +208,7 @@ elif selectedComponent == 'U-D':
                 )
 
     accDefaultFig.update_layout(width=980,height=500,
-                                title_text='U-D Bileşeni', title_x=0.5)
+                                title_text='U-D Bileşeni', title_x=0.5, paper_bgcolor="white")
 
 defaultTargetDD1 = targetSpectrumCreator.targetSpectrum(selectedLatitude, selectedLongitude, selectedVs30, "DD1")
 defaultTargetDD2 = targetSpectrumCreator.targetSpectrum(selectedLatitude, selectedLongitude, selectedVs30, "DD2")
@@ -260,7 +260,7 @@ defaultFig.update_yaxes(
             )
 
 defaultFig.update_layout(showlegend=True, template=None,width=700,height=500,
-                                    title_text='Yatay Spektrum', title_x=0.5, legend=dict(
+                                    title_text='Yatay Spektrum', title_x=0.5, paper_bgcolor="white", legend=dict(
                                                                     yanchor="top",
                                                                     x = 1,
                                                                     xanchor="right")
@@ -307,7 +307,7 @@ defaultFigVer.update_yaxes(
             )
 
 defaultFigVer.update_layout(showlegend=True, template=None,width=700,height=500,
-                                    title_text='Düşey Spektrum', title_x=0.5, legend=dict(
+                                    title_text='Düşey Spektrum', title_x=0.5,  paper_bgcolor="white", legend=dict(
                                                                     yanchor="top",
                                                                     x = 1,
                                                                     xanchor="right")
