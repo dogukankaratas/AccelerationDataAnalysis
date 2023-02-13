@@ -214,6 +214,10 @@ defaultTargetDD1 = targetSpectrumCreator.targetSpectrum(selectedLatitude, select
 defaultTargetDD2 = targetSpectrumCreator.targetSpectrum(selectedLatitude, selectedLongitude, selectedVs30, "DD2")
 defaultFig = go.Figure()
 
+maxgList = [max(defaultTargetDD1['Sa'].to_list()), max(defaultTargetDD2['Sa'].to_list()), 
+            max(selectedAccFrame[selectedEName].to_list()), max(selectedAccFrame[selectedNName].to_list())]
+maxg = max(maxgList)
+
 defaultFig.add_trace(go.Scatter(x = defaultTargetDD1['T'],
                                 y=defaultTargetDD1['Sa'],
                                 name='Tasarım Spektrumu (DD1)', line=dict(color='red')))
@@ -253,7 +257,7 @@ defaultFig.update_xaxes(
 
 defaultFig.update_yaxes(
                 title_text = 'pSa (g)',
-                range=[0,3],
+                range=[0,round(maxg, 0) +1],
                 showgrid = True,
                 zeroline=True,
                 zerolinewidth=1
@@ -269,6 +273,9 @@ defaultFig.update_layout(showlegend=True, template=None,width=700,height=500,
 defaultTargetVerDD1 = targetSpectrumCreator.verticalTargetSpectrum(selectedLatitude, selectedLongitude, selectedVs30, "DD1")
 defaultTargetVerDD2 = targetSpectrumCreator.verticalTargetSpectrum(selectedLatitude, selectedLongitude, selectedVs30, "DD2")
 defaultFigVer = go.Figure()
+
+maxgVerList = [max(defaultTargetVerDD1['Sad'].to_list()), max(defaultTargetVerDD2['Sad'].to_list()), max(selectedAccFrame[selectedUName].to_list())]
+maxgVer = max(maxgVerList)
 
 defaultFigVer.add_trace(go.Scatter(x = defaultTargetVerDD1['T'],
                                 y=defaultTargetVerDD1['Sad'],
@@ -300,7 +307,7 @@ defaultFigVer.update_xaxes(
 
 defaultFigVer.update_yaxes(
                 title_text = 'pSa (g)',
-                range=[0,3],
+                range=[0,round(maxgVer, 0) +1],
                 showgrid = True,
                 zeroline=True,
                 zerolinewidth=1
