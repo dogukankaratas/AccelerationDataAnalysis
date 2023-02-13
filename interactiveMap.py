@@ -8,8 +8,16 @@ from ascReader import ascReader
 
 st.set_page_config("Kahramanmaraş Depremi Verileri", layout='wide')
 
-stationFrame = pd.read_csv('stationData.csv', sep=';')
-accFrame = pd.read_excel('1_Spectral_Acceleration_Stations.xlsx')
+st.title("Kahramanmaraş Depremi Verileri")
+infCol, nameCol = st.columns([3, 1])
+with infCol:
+    st.info("Tüm veriler 10.02.2023 tarihinde AFAD veritabanından ham olarak elde edilmiştir. \
+    Bu aracın herhangi bir ticari amacı olmayıp, araştırmacılar ve mühendisler için bilgi amaçlı oluşturulmuştur.", icon="⚠️")
+with nameCol:
+    st.info('Hazırlayanlar: Doğukan Karataş ve Dr.Ahmet Anıl Dindar', icon="ℹ️")
+
+stationFrame = pd.read_excel('data/stationData.xlsx')
+accFrame = pd.read_excel('data/1_Spectral_Acceleration_Stations.xlsx')
 
 layer = pdk.Layer(
     'HexagonLayer',  
@@ -53,12 +61,13 @@ with inputCol:
             
         soilType = st.selectbox('Zemin Sınıfı', ["ZA", "ZB", "ZC", "ZD", "ZE"], 2)
 
-        selectedLatitude = filteredStationFrame['Latitude'].to_list()[0]
-        selectedLongitude = filteredStationFrame['Longitude'].to_list()[0]
-        if filteredStationFrame['Vs30'].to_list()[0] == 0:
-            selectedVs30 = soilType
-        else:
-            selectedVs30 = filteredStationFrame['Vs30'].to_list()[0]
+    selectedLatitude = filteredStationFrame['Latitude'].to_list()[0]
+    selectedLongitude = filteredStationFrame['Longitude'].to_list()[0]
+
+    if filteredStationFrame['Vs30'].to_list()[0] == 0:
+        selectedVs30 = soilType
+    else:
+        selectedVs30 = filteredStationFrame['Vs30'].to_list()[0]
     
     selectedComponent = st.selectbox('İvme Kaydı Bileşeni', ['N-S', 'E-W', 'U-D'])
 
@@ -207,19 +216,19 @@ defaultFig = go.Figure()
 
 defaultFig.add_trace(go.Scatter(x = defaultTargetDD1['T'],
                                 y=defaultTargetDD1['Sa'],
-                                name='Tasarım Spektrumu (DD1)', line=dict(color='black')))
+                                name='Tasarım Spektrumu (DD1)', line=dict(color='red')))
                         
 
 defaultFig.add_trace(go.Scatter(x = defaultTargetDD2['T'],
                                 y=defaultTargetDD2['Sa'],
-                                name='Tasarım Spektrumu (DD2)', line=dict(color='gray')))
+                                name='Tasarım Spektrumu (DD2)', line=dict(color='green')))
 
 
 defaultFig.add_trace(go.Scatter(
             x = selectedAccFrame['Period'],
             y = selectedAccFrame[selectedEName], 
             name = 'E-W',
-            line = dict(color='red'),
+            line = dict(color='black', width=2.5),
             showlegend=True
         ))
 
@@ -228,7 +237,7 @@ defaultFig.add_trace(go.Scatter(
             x = selectedAccFrame['Period'],
             y = selectedAccFrame[selectedNName], 
             name = 'N-S',
-            line = dict(color='blue'),
+            line = dict(color='black', width=2.5, dash='dot'),
             showlegend=True
         ))
 
@@ -250,7 +259,7 @@ defaultFig.update_yaxes(
                 zerolinewidth=1
             )
 
-defaultFig.update_layout(showlegend=True, template=None,width=750,height=500,
+defaultFig.update_layout(showlegend=True, template=None,width=700,height=500,
                                     title_text='Yatay Spektrum', title_x=0.5, legend=dict(
                                                                     yanchor="top",
                                                                     x = 1,
@@ -263,19 +272,19 @@ defaultFigVer = go.Figure()
 
 defaultFigVer.add_trace(go.Scatter(x = defaultTargetVerDD1['T'],
                                 y=defaultTargetVerDD1['Sad'],
-                                name='Düşey Tasarım Spektrumu (DD1)', line=dict(color='black')))
+                                name='Düşey Tasarım Spektrumu (DD1)', line=dict(color='red')))
                         
 
 defaultFigVer.add_trace(go.Scatter(x = defaultTargetVerDD2['T'],
                                 y=defaultTargetVerDD2['Sad'],
-                                name='Düşey Tasarım Spektrumu (DD2)', line=dict(color='gray')))
+                                name='Düşey Tasarım Spektrumu (DD2)', line=dict(color='green')))
 
 
 defaultFigVer.add_trace(go.Scatter(
             x = selectedAccFrame['Period'],
             y = selectedAccFrame[selectedUName], 
             name = 'U-D',
-            line = dict(color='orange'),
+            line = dict(color='black', width=2.5),
             showlegend=True
         ))
 
@@ -297,7 +306,7 @@ defaultFigVer.update_yaxes(
                 zerolinewidth=1
             )
 
-defaultFigVer.update_layout(showlegend=True, template=None,width=750,height=500,
+defaultFigVer.update_layout(showlegend=True, template=None,width=700,height=500,
                                     title_text='Düşey Spektrum', title_x=0.5, legend=dict(
                                                                     yanchor="top",
                                                                     x = 1,

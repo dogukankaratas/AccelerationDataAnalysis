@@ -30,7 +30,7 @@ def targetSpectrum(lat , lon , vs30, intensity):
         spectral_value = np.round( interpolator( lat,lon)  , 5 )
         
         spectral_value_dict[ column_name ] = spectral_value
-
+    
     # vs30 to soil type function
     def vsToSoil(vs30) :
         vs30_values = [ 0 , 180 , 360 , 760 , 1_500 , 20_000 ]
