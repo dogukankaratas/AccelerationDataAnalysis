@@ -8,7 +8,7 @@
 #%% IMPORT MODULES
 # ımporting modules
 # 
-import os, pandas as pd, matplotlib.pyplot as plt , numpy as np , datetime as dt , math  ,  scipy.interpolate as interp
+import os, pandas as pd,  numpy as np , datetime as dt , math  ,  scipy.interpolate as interp
 from scipy.interpolate import interp1d
 
 #========================================================================================================
@@ -192,21 +192,7 @@ def spectra_plot(intensity, period_list , spectral_orbits , soil_class , lat , l
     if spectral_orbits == [] :
         print( "Please run self.get_spectral_ordinates() method first")
         raise()
-    else: 
-        fig = plt.figure(figsize=(20/2.54 , 10 /2.54))
-        plt.axhline(c="black")
-        plt.axvline(c="black")        
-        plt.plot( period_list , spectral_orbits)
-        plt.xlabel( "Period (s)")
-        plt.ylabel("Sa (g)")
-        plt.title( f"{intensity}-{soil_class}-{lat}_{lon}-RS" )
-        plt.box( False)
-        plt.xlim( 0 , 5 ) #period_list[-1])
-        plt.ylim(bottom = 0 )
-        plt.tight_layout()
-        plt.show()
-
-
+    
 #========================================================================================================
 
 def reduced_specta(  period_list , spectral_orbits , D = 0 , I = 1 , R = 1   , TB = 1) :
