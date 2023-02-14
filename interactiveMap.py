@@ -93,16 +93,18 @@ with firstEqTab:
     accDefaultFig = go.Figure()
     accDefaultFig.update_xaxes(
                         showgrid = True,
+                        range = [0,3],
                         showline = False
     )
     accDefaultFig.update_yaxes(
                     title_text = 'Acceleration',
+                    range = [0,3],
                     showgrid = True,
                     showline=False
                 )
 
     accDefaultFig.update_layout(width=980,height=500,
-                                    title_text='N-S Bileşeni', title_x=0.5, plot_bgcolor="white")
+                                    title_text='N-S Bileşeni', title_x=0.5, paper_bgcolor="white")
 
     defaultFig = go.Figure()
     defaultFig.update_xaxes(
@@ -111,7 +113,7 @@ with firstEqTab:
                         tickvals=np.arange(0,5.3,0.5),
                         dtick = 1,
                         showgrid = True,
-                        zeroline=True,
+                        zeroline=False,
                         zerolinewidth=1
                     )
 
@@ -119,7 +121,7 @@ with firstEqTab:
                         title_text = 'pSa (g)',
                         range=[0,3],
                         showgrid = True,
-                        zeroline=True,
+                        zeroline=False,
                         zerolinewidth=1
                     )
 
@@ -137,7 +139,7 @@ with firstEqTab:
                         tickvals=np.arange(0,5.3,0.5),
                         dtick = 1,
                         showgrid = True,
-                        zeroline=True,
+                        zeroline=False,
                         zerolinewidth=1
                     )
 
@@ -145,7 +147,7 @@ with firstEqTab:
                         title_text = 'pSa (g)',
                         range=[0,3],
                         showgrid = True,
-                        zeroline=True,
+                        zeroline=False,
                         zerolinewidth=1
                     )
 
@@ -438,7 +440,7 @@ with secondEqTab:
                 )
 
     accDefaultFig.update_layout(width=980,height=500,
-                                    title_text='N-S Bileşeni', title_x=0.5, plot_bgcolor="white")
+                                    title_text='N-S Bileşeni', title_x=0.5, paper_bgcolor="white")
 
     defaultFig = go.Figure()
     defaultFig.update_xaxes(
@@ -720,7 +722,7 @@ with targetSpectrumTab:
         zerolinewidth=1
     )
 
-    defaultTargetFig.update_layout(showlegend=False, template=None, plot_bgcolor = "white", width=1000,height=570, title_text='Hedef Spektrum', title_x=0.5, legend=dict(
+    defaultTargetFig.update_layout(showlegend=False, template=None, paper_bgcolor = "white", width=1000,height=570, title_text='Hedef Spektrum', title_x=0.5, legend=dict(
         yanchor="top",
         x = 1,
         xanchor="right"
@@ -850,7 +852,7 @@ with targetSpectrumTab:
             zerolinewidth=1
         )
 
-        defaultTargetFig.update_layout(showlegend=True, template=None, plot_bgcolor = "white", width=1000,height=570, title_text='Hedef Spektrum', title_x=0.5, legend=dict(
+        defaultTargetFig.update_layout(showlegend=True, template=None, paper_bgcolor = "white", width=1000,height=570, title_text='Hedef Spektrum', title_x=0.5, legend=dict(
             yanchor="top",
             x = 1,
             xanchor="right"
