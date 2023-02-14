@@ -22,30 +22,38 @@ targetSpectrumTab, firstEqTab, secondEqTab = st.tabs(["TBDY-2018 Hedef Spektrum"
                                    "06.02.2023 01:17:32 Pazarcık (Kahramanmaraş) Earthquake MW 7.7",
                                    "06.02.2023 10:24:47 Elbistan (Kahramanmaraş) Earthquake MW 7.6"])
 
+stationFrameURL = pd.read_csv('https://raw.githubusercontent.com/dogukankaratas/dataRepo/main/stationData.csv')
 stationFrame = pd.read_excel('data/stationData.xlsx')
 accFrame = pd.read_excel('data/1_Spectral_Acceleration_Stations.xlsx')
 acc2Frame = pd.read_excel('data/2_Spectral_Acceleration_Stations.xlsx')
 
 with firstEqTab:
     layer = pdk.Layer(
-        'HexagonLayer',  
-        stationFrame,
+        'ScatterplotLayer',
+        stationFrameURL,
         get_position=['Longitude', 'Latitude'],
-        auto_highlight=False,
-        radius=7000,
-        pickable=True,
+        get_radius=5000,
+        get_fill_color=[200, 30, 0, 160],
+        pickable=True
     )
 
     # Set the viewport location
     view_state = pdk.ViewState(
-        longitude=36, latitude=38, zoom=6
-    )
+            longitude=36, latitude=38, zoom=6
+        )
     # Combined all of it and render a viewport
     r = pdk.Deck(
-        map_style="mapbox://styles/mapbox/light-v9",
-        initial_view_state=view_state,
-        layers=[layer]   
-    )
+            map_style="mapbox://styles/mapbox/light-v9",
+            initial_view_state=view_state,
+            layers=[layer],
+            tooltip = {
+            "html": "<b>Istasyon:</b> {ID} <br/> <b>Vs30:</b> {Vs30} <br/> <b>Enlem:</b> {Latitude} <br/> <b>Boylam:</b> {Longitude} <br/>" ,
+            "style": {
+                    "backgroundColor": "steelblue",
+                    "color": "white"
+            }
+    }
+        )
 
     st.pydeck_chart(r)
     inputCol, accGraphCol = st.columns([1, 2])
@@ -366,24 +374,31 @@ with firstEqTab:
 
 with secondEqTab:
     layer = pdk.Layer(
-        'HexagonLayer',  
-        stationFrame,
+        'ScatterplotLayer',
+        stationFrameURL,
         get_position=['Longitude', 'Latitude'],
-        auto_highlight=False,
-        radius=7000,
-        pickable=True,
+        get_radius=5000,
+        get_fill_color=[200, 30, 0, 160],
+        pickable=True
     )
 
     # Set the viewport location
     view_state = pdk.ViewState(
-        longitude=36, latitude=38, zoom=6
-    )
+            longitude=36, latitude=38, zoom=6
+        )
     # Combined all of it and render a viewport
     r = pdk.Deck(
-        map_style="mapbox://styles/mapbox/light-v9",
-        initial_view_state=view_state,
-        layers=[layer]   
-    )
+            map_style="mapbox://styles/mapbox/light-v9",
+            initial_view_state=view_state,
+            layers=[layer],
+            tooltip = {
+            "html": "<b>Istasyon:</b> {ID} <br/> <b>Vs30:</b> {Vs30} <br/> <b>Enlem:</b> {Latitude} <br/> <b>Boylam:</b> {Longitude} <br/>" ,
+            "style": {
+                    "backgroundColor": "steelblue",
+                    "color": "white"
+            }
+    }
+        )
 
     st.pydeck_chart(r)
     inputCol, accGraphCol = st.columns([1, 2])
