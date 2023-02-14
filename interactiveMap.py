@@ -452,12 +452,14 @@ with secondEqTab:
     accDefaultFig = go.Figure()
     accDefaultFig.update_xaxes(
                         showgrid = True,
-                        showline = False
+                        showline = False,
+                        zeroline = True
     )
     accDefaultFig.update_yaxes(
                     title_text = 'Acceleration',
                     showgrid = True,
-                    showline=False
+                    showline=False,
+                    zeroline = False
                 )
 
     accDefaultFig.update_layout(width=980,height=500,
