@@ -5,3 +5,5 @@ pandas==1.5.0
 scipy==1.9.2
 pydeck==0.8.0
 openpyxl==3.0.10
+matplotlib==3.6.1
+matplotlib-inline==0.1.6
