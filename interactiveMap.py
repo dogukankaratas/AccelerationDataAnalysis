@@ -453,7 +453,7 @@ with secondEqTab:
     accDefaultFig.update_xaxes(
                         showgrid = True,
                         showline = False,
-                        zeroline = True
+                        zeroline = False
     )
     accDefaultFig.update_yaxes(
                     title_text = 'Acceleration',
