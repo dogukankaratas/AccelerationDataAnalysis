@@ -6,24 +6,28 @@ import targetSpectrumCreator
 import numpy as np
 from ascReader import ascReader
 
-st.set_page_config("Kahramanmaraş Depremi Verileri", layout='wide')
+st.set_page_config("Kahramanmaraş Depremi Verileri 2023", layout='wide')
 
-st.title("Kahramanmaraş Depremi Verileri")
-st.markdown("v 1.0.2")
+st.title("Kahramanmaraş Depremi Verileri 2023")
 
-infCol, nameCol = st.columns([3, 1])
-with infCol:
+with st.sidebar:
+    st.markdown("## Kahramanmaraş Depremi Verileri 2023")
     st.info("Tüm veriler 10.02.2023 tarihinde AFAD veritabanından ham olarak elde edilmiştir. \
-    Bu aracın herhangi bir ticari amacı olmayıp, araştırmacılar ve mühendisler için bilgi amaçlı oluşturulmuştur.", icon="⚠️")
-with nameCol:
-    st.info('Hazırlayanlar: Doğukan Karataş ve Dr.Ahmet Anıl Dindar', icon="ℹ️")
+    Bu aracın herhangi bir ticari amacı olmayıp, araştırmacılar ve mühendisler için bilgi amaçlı oluşturulmuştur.", icon="ℹ️")
+    st.info("Güncel veriler icin AFAD sitesini takip ediniz.", icon="⚠️")
+    st.markdown("**Katkıda Bulunanlar**")
+    st.markdown("[Doğukan Karataş](https://www.linkedin.com/in/dogukankaratas/)")
+    st.markdown("[Yunus Emre Daşdan](https://www.linkedin.com/in/yunus-emre-dasdan/)")
+    st.markdown("[Dr. Ahmet Anıl Dindar](https://www.linkedin.com/in/adindar/)")
+    st.success("v1.0.3", icon="✅")
 
 targetSpectrumTab, firstEqTab, secondEqTab = st.tabs(["TBDY-2018 Hedef Spektrum",
                                    "06.02.2023 01:17:32 Pazarcık (Kahramanmaraş) Earthquake MW 7.7",
                                    "06.02.2023 10:24:47 Elbistan (Kahramanmaraş) Earthquake MW 7.6"])
 
 stationFrameURL = pd.read_csv('https://raw.githubusercontent.com/dogukankaratas/dataRepo/main/stationData.csv')
-stationFrame = pd.read_excel('data/stationData.xlsx')
+stationFrame1 = pd.read_excel('data/stationData1.xlsx', converters={'ID': str})
+stationFrame2 = pd.read_excel('data/stationData2.xlsx', converters={'ID': str})
 accFrame = pd.read_excel('data/1_Spectral_Acceleration_Stations.xlsx')
 acc2Frame = pd.read_excel('data/2_Spectral_Acceleration_Stations.xlsx')
 
@@ -58,19 +62,19 @@ with firstEqTab:
     st.pydeck_chart(r)
     inputCol, accGraphCol = st.columns([1, 2])
     with inputCol:
-        provinces = set(stationFrame['Province'].to_list())
+        provinces = set(stationFrame1['Province'].to_list())
         provinces = [x for x in sorted(provinces)]
         selectedProvince = st.selectbox('Şehir', provinces, 2)
                         
-        isSelectedProvince = stationFrame['Province'] == selectedProvince
-        filteredFrame = stationFrame[isSelectedProvince]
+        isSelectedProvince = stationFrame1['Province'] == selectedProvince
+        filteredFrame = stationFrame1[isSelectedProvince]
 
         stations = filteredFrame['ID']
         stations = [x for x in sorted(stations)]
         selectedStation = st.selectbox('İstasyon', stations)
 
-        isSelectedStation = stationFrame['ID'] == selectedStation
-        filteredStationFrame = stationFrame[isSelectedStation]
+        isSelectedStation = stationFrame1['ID'] == selectedStation
+        filteredStationFrame = stationFrame1[isSelectedStation]
 
         if filteredStationFrame['Vs30'].to_list()[0] == 0:
                     
@@ -102,12 +106,14 @@ with firstEqTab:
     accDefaultFig.update_xaxes(
                         showgrid = True,
                         range = [0,3],
-                        showline = False
+                        showline = False,
+                        zeroline=False
     )
     accDefaultFig.update_yaxes(
                     title_text = 'Acceleration',
                     range = [0,3],
                     showgrid = True,
+                    zeroline=False,
                     showline=False
                 )
 
@@ -403,19 +409,19 @@ with secondEqTab:
     st.pydeck_chart(r)
     inputCol, accGraphCol = st.columns([1, 2])
     with inputCol:
-        provinces = set(stationFrame['Province'].to_list())
+        provinces = set(stationFrame2['Province'].to_list())
         provinces = [x for x in sorted(provinces)]
         selectedProvince = st.selectbox('Şehir ', provinces, 2)
                         
-        isSelectedProvince = stationFrame['Province'] == selectedProvince
-        filteredFrame = stationFrame[isSelectedProvince]
+        isSelectedProvince = stationFrame2['Province'] == selectedProvince
+        filteredFrame = stationFrame2[isSelectedProvince]
 
         stations = filteredFrame['ID']
         stations = [x for x in sorted(stations)]
         selectedStation = st.selectbox('İstasyon ', stations)
 
-        isSelectedStation = stationFrame['ID'] == selectedStation
-        filteredStationFrame = stationFrame[isSelectedStation]
+        isSelectedStation = stationFrame2['ID'] == selectedStation
+        filteredStationFrame = stationFrame2[isSelectedStation]
 
         if filteredStationFrame['Vs30'].to_list()[0] == 0:
                     
@@ -880,7 +886,3 @@ with targetSpectrumTab:
             st.write(targetValuesDD1)
         elif targetIntensity == "DD2":
             st.write(targetValuesDD2)
-
-verSuccessCol, psuedoCol = st.columns([1, 4])
-with verSuccessCol:
-    st.success("v1.0.2", icon="✅")
