@@ -20,7 +20,7 @@ with st.sidebar:
     st.markdown("[Doğukan Karataş](https://www.linkedin.com/in/dogukankaratas/)")
     st.markdown("[Yunus Emre Daşdan](https://www.linkedin.com/in/yunus-emre-dasdan/)")
     st.markdown("[Dr. Ahmet Anıl Dindar](https://www.linkedin.com/in/adindar/)")
-    st.success("v1.0.3", icon="✅")
+    st.success("v1.0.4", icon="✅")
 
 targetSpectrumTab, firstEqTab, secondEqTab = st.tabs(["TBDY-2018 Hedef Spektrum",
                                    "06.02.2023 01:17:32 Pazarcık (Kahramanmaraş) Earthquake MW 7.7",
