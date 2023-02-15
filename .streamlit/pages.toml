@@ -1,0 +1,8 @@
+[[pages]]
+path = "intro.py"
+name = "Giriş"
+
+
+[[pages]]
+path = "interactiveMap.py"
+name = "Deprem Veri Analizi"

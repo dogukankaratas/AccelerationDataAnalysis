@@ -5,13 +5,14 @@ import plotly.graph_objects as go
 import targetSpectrumCreator
 import numpy as np
 from ascReader import ascReader
+from st_pages import show_pages_from_config, add_page_title
 
 st.set_page_config("Kahramanmaraş Depremi Verileri 2023", layout='wide')
 
 st.title("Kahramanmaraş Depremi Verileri 2023")
+show_pages_from_config()
 
 with st.sidebar:
-    st.markdown("## Kahramanmaraş Depremi Verileri 2023")
     st.info("Tüm veriler 10.02.2023 tarihinde AFAD veritabanından ham olarak elde edilmiştir. \
     Bu aracın herhangi bir ticari amacı olmayıp, araştırmacılar ve mühendisler için bilgi amaçlı oluşturulmuştur.", icon="ℹ️")
     st.info("Güncel veriler icin AFAD sitesini takip ediniz.", icon="⚠️")
@@ -30,6 +31,24 @@ stationFrame1 = pd.read_excel('data/stationData1.xlsx', converters={'ID': str})
 stationFrame2 = pd.read_excel('data/stationData2.xlsx', converters={'ID': str})
 accFrame = pd.read_excel('data/1_Spectral_Acceleration_Stations.xlsx')
 acc2Frame = pd.read_excel('data/2_Spectral_Acceleration_Stations.xlsx')
+firstEqLocation = pd.read_json('https://raw.githubusercontent.com/dogukankaratas/dataRepo/main/firstEq.json')
+secondEqLocation = pd.read_json('https://raw.githubusercontent.com/dogukankaratas/dataRepo/main/secondEq.json')
+
+
+icon_data = {
+    "url": "https://img.icons8.com/plasticine/100/000000/marker.png",
+    "width": 128,
+    "height":128,
+    "anchorY": 128
+}
+
+firstEqLocation['icon_data']= None
+for i in firstEqLocation.index:
+     firstEqLocation['icon_data'][i] = icon_data
+
+secondEqLocation['icon_data']= None
+for i in secondEqLocation.index:
+     secondEqLocation['icon_data'][i] = icon_data
 
 with firstEqTab:
     layer = pdk.Layer(
@@ -41,6 +60,16 @@ with firstEqTab:
         pickable=True
     )
 
+    icon_layer = pdk.Layer(
+        type='IconLayer',
+        data=firstEqLocation,
+        get_icon='icon_data',
+        get_size=4,
+        pickable=False,
+        size_scale=15,
+        get_position='coordinates'
+    )
+
     # Set the viewport location
     view_state = pdk.ViewState(
             longitude=36, latitude=38, zoom=6
@@ -49,7 +78,7 @@ with firstEqTab:
     r = pdk.Deck(
             map_style="mapbox://styles/mapbox/light-v9",
             initial_view_state=view_state,
-            layers=[layer],
+            layers=[layer, icon_layer],
             tooltip = {
             "html": "<b>Istasyon:</b> {ID} <br/> <b>Vs30:</b> {Vs30} <br/> <b>Enlem:</b> {Latitude} <br/> <b>Boylam:</b> {Longitude} <br/>" ,
             "style": {
@@ -388,6 +417,16 @@ with secondEqTab:
         pickable=True
     )
 
+    icon_layer = pdk.Layer(
+        type='IconLayer',
+        data=secondEqLocation,
+        get_icon='icon_data',
+        get_size=4,
+        pickable=False,
+        size_scale=15,
+        get_position='coordinates'
+    )
+
     # Set the viewport location
     view_state = pdk.ViewState(
             longitude=36, latitude=38, zoom=6
@@ -396,7 +435,7 @@ with secondEqTab:
     r = pdk.Deck(
             map_style="mapbox://styles/mapbox/light-v9",
             initial_view_state=view_state,
-            layers=[layer],
+            layers=[layer, icon_layer],
             tooltip = {
             "html": "<b>Istasyon:</b> {ID} <br/> <b>Vs30:</b> {Vs30} <br/> <b>Enlem:</b> {Latitude} <br/> <b>Boylam:</b> {Longitude} <br/>" ,
             "style": {
