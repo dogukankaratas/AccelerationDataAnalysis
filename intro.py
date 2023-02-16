@@ -11,6 +11,9 @@ with st.sidebar:
     st.markdown("[Doğukan Karataş](https://www.linkedin.com/in/dogukankaratas/)")
     st.markdown("[Yunus Emre Daşdan](https://www.linkedin.com/in/yunus-emre-dasdan/)")
     st.markdown("[Dr. Ahmet Anıl Dindar](https://www.linkedin.com/in/adindar/)")
+    st.markdown("**Referans**")
+    st.markdown("[Doğukan Karataş, 2023, Development of Ground Motion Selection and Scaling Framework Compatible with TBEC-2018 (Under Review),\
+                 Earthquake and Structural Engineering MSc Dissertation](https://github.com/dogukankaratas/scalepy/blob/main/Development%20of%20Ground%20Motion%20Selection%20and%20Scaling%20Framework%20Compatible%20with%20TBEC-2018%20(Under%20Review).pdf)")
     st.success("v1.0.4", icon="✅")
 
 st.markdown("# Kahramanmaraş Deprem Verilerinin İncelenmesi")
