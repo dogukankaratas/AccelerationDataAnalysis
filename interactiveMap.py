@@ -5,7 +5,9 @@ import plotly.graph_objects as go
 import targetSpectrumCreator
 import numpy as np
 from ascReader import ascReader
-from st_pages import show_pages_from_config, add_page_title
+from st_pages import show_pages_from_config
+import folium as fl
+from streamlit_folium import st_folium
 
 st.set_page_config("Kahramanmaraş Depremi Verileri 2023", layout='wide')
 
@@ -766,6 +768,19 @@ with secondEqTab:
         
 with targetSpectrumTab:
     st.markdown("## TBDY-2018 Hedef Spektrum")
+
+    mapContainer = st.container()
+
+    with mapContainer:
+        def get_pos(lat,lng):
+                return lat,lng
+
+        m = fl.Map()
+
+        m.add_child(fl.LatLngPopup())
+
+        map = st_folium(m, height=400, width=1400, center=[38.843, 40.848], zoom=6)
+
     targetInputCol, targetGraphCol = st.columns([0.8, 2])
     # default empty figure
     defaultTargetFig = go.Figure()
@@ -795,8 +810,24 @@ with targetSpectrumTab:
 
     with targetInputCol:
         with st.form("locationForm"):
-            targetLatitude = st.number_input("Enlem", 34.25, 42.95, 36.0, 0.5)
-            targetLongitude = st.number_input("Boylam", 24.55, 45.95, 42.0, 0.5)
+            try:
+                locationData = get_pos(map['last_clicked']['lat'],map['last_clicked']['lng'])   
+            except:
+                pass
+            try:
+                if 34.25< locationData[0] < 42.95:
+                    targetLatitude = st.number_input("Enlem", 34.25, 42.95, locationData[0], 0.5)
+                else:
+                    st.warning("Seçilen lokasyon veri setinin dışındadır.", icon="🚨")
+            except:
+                targetLatitude = st.number_input("Enlem", 34.25, 42.95, 36.0, 0.5)
+            try:
+                if 24.55 < locationData[1] < 45.95:
+                    targetLongitude = st.number_input("Boylam", 24.55, 45.95, locationData[1], 0.5)
+                else:
+                    st.warning("Seçilen lokasyon veri setinin dışındadır.", icon="🚨")
+            except:
+                targetLongitude = st.number_input("Boylam", 24.55, 45.95, 42.0, 0.5)
             targetIntensity = st.selectbox("Yer Hareketi Düzeyi", ["DD1", "DD2", "DD3", "DD4"], 1)
             targetSoil = st.selectbox('Zemin Sınıfı', ('ZA', 'ZB', 'ZC', 'ZD', 'ZE'), 2)
             targetOrdinate = st.selectbox('Spektrum Yönü', ('Yatay', 'Düşey'), 0)
