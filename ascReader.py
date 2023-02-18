@@ -17,6 +17,6 @@ def ascReader(event, stationCode, direction, path):
             except : 
                 pass
     accData = pd.DataFrame()
-    accData['acc'] = acc
+    accData['acc'] = [x*0.001 for x in acc]
     accData['t'] = np.arange(0, dt*len(acc), dt)
     return accData

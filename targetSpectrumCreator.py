@@ -178,8 +178,10 @@ def get_spectral_ordinates( soil_class , spectral_value_dict , period_list = 0 )
     spectral_yatay_orbits = [ spektra_yatay(period,SDs,SD1, TA, TB , TL) for period in period_list ]
     spectral_dusey_orbits = [ spektra_dusey(period,SDs,SD1, TA, TB , TL) for period in period_list ]
 
+    pga = spectral_value_dict["PGA"]
+    pgv = spectral_value_dict["PGV"]
 
-    AFAD_spectral_values_dict = {  "Ss":Ss , "S1":S1 , "Fs":Fs, "F1":F1, "SDs":SDs , "SD1":SD1 , "TA":round(TA,2) ,"TB":round(TB,2), "TL":round(TL,2) , "DTS" : DTS , "Soil Class" : soil_class}
+    AFAD_spectral_values_dict = {  "Ss":Ss , "S1":S1 , "PGA":pga, "PGV": pgv, "Fs":Fs, "F1":F1, "SDs":round(SDs, 3) , "SD1":round(SD1, 3) , "TA":round(TA,2) ,"TB":round(TB,2), "TL":round(TL,2) , "DTS" : DTS , "Soil Class" : soil_class}
 
     # Return
     return( period_list , spectral_yatay_orbits  , spectral_dusey_orbits , AFAD_spectral_values_dict )

@@ -38,8 +38,6 @@ accFrame = pd.read_excel('data/1_Spectral_Acceleration_Stations.xlsx')
 acc2Frame = pd.read_excel('data/2_Spectral_Acceleration_Stations.xlsx')
 firstEqLocation = pd.read_json('https://raw.githubusercontent.com/dogukankaratas/dataRepo/main/firstEq.json')
 secondEqLocation = pd.read_json('https://raw.githubusercontent.com/dogukankaratas/dataRepo/main/secondEq.json')
-
-
 icon_data = {
     "url": "https://img.icons8.com/plasticine/100/000000/marker.png",
     "width": 128,
@@ -138,13 +136,14 @@ with firstEqTab:
 
     accDefaultFig = go.Figure()
     accDefaultFig.update_xaxes(
+                        title_text = 'Time (s)',
                         showgrid = True,
                         range = [0,3],
                         showline = False,
                         zeroline=False
     )
     accDefaultFig.update_yaxes(
-                    title_text = 'Acceleration',
+                    title_text = 'Acceleration (g)',
                     range = [0,3],
                     showgrid = True,
                     zeroline=False,
@@ -228,11 +227,12 @@ with firstEqTab:
                 line=dict(color='blue')
             ))
             accDefaultFig.update_xaxes(
+                                title_text = 'Time (s)',
                                 showgrid = True,
                                 showline = False
             )
             accDefaultFig.update_yaxes(
-                            title_text = 'Acceleration',
+                            title_text = 'Acceleration (g)',
                             showgrid = True,
                             showline=False
                         )
@@ -248,11 +248,12 @@ with firstEqTab:
                 line=dict(color='blue')
             ))
             accDefaultFig.update_xaxes(
+                                title_text = 'Time (s)',
                                 showgrid = True,
                                 showline = False
             )
             accDefaultFig.update_yaxes(
-                            title_text = 'Acceleration',
+                            title_text = 'Acceleration (g)',
                             showgrid = True,
                             showline=False
                         )
@@ -268,11 +269,12 @@ with firstEqTab:
                 line=dict(color='blue')
             ))
             accDefaultFig.update_xaxes(
+                                title_text = 'Time (s)',
                                 showgrid = True,
                                 showline = False
             )
             accDefaultFig.update_yaxes(
-                            title_text = 'Acceleration',
+                            title_text = 'Acceleration (g)',
                             showgrid = True,
                             showline=False
                         )
@@ -495,12 +497,13 @@ with secondEqTab:
 
     accDefaultFig = go.Figure()
     accDefaultFig.update_xaxes(
+                        title_text = 'Time (s)',
                         showgrid = True,
                         showline = False,
                         zeroline = False
     )
     accDefaultFig.update_yaxes(
-                    title_text = 'Acceleration',
+                    title_text = 'Acceleration (g)',
                     showgrid = True,
                     showline=False,
                     zeroline = False
@@ -583,11 +586,12 @@ with secondEqTab:
                 line=dict(color='blue')
             ))
             accDefaultFig.update_xaxes(
+                                title_text = 'Time (s)',
                                 showgrid = True,
                                 showline = False
             )
             accDefaultFig.update_yaxes(
-                            title_text = 'Acceleration',
+                            title_text = 'Acceleration (g)',
                             showgrid = True,
                             showline=False
                         )
@@ -603,11 +607,12 @@ with secondEqTab:
                 line=dict(color='blue')
             ))
             accDefaultFig.update_xaxes(
+                                title_text = 'Time (s)',
                                 showgrid = True,
                                 showline = False
             )
             accDefaultFig.update_yaxes(
-                            title_text = 'Acceleration',
+                            title_text = 'Acceleration (g)',
                             showgrid = True,
                             showline=False
                         )
@@ -622,11 +627,12 @@ with secondEqTab:
                 line=dict(color='blue')
             ))
             accDefaultFig.update_xaxes(
+                                title_text = 'Time (s)',
                                 showgrid = True,
                                 showline = False
             )
             accDefaultFig.update_yaxes(
-                            title_text = 'Acceleration',
+                            title_text = 'Acceleration (g)',
                             showgrid = True,
                             showline=False
                         )
@@ -848,8 +854,8 @@ with targetSpectrumTab:
     targetValuesDD2 = {}
 
     if targetCreateButton:
-        targetValuesDD1, targetPeriodDD1, targetHorizontalOrbitsDD1, targetVerticalOrbitsDD1 = targetSpectrumCreator.tbdy2018_spektra("DD1", targetSelectedVs30, [targetLatitude, targetLongitude], False, False, False)
-        targetValuesDD2, targetPeriodDD2, targetHorizontalOrbitsDD2, targetVerticalOrbitsDD2 = targetSpectrumCreator.tbdy2018_spektra("DD2", targetSelectedVs30, [targetLatitude, targetLongitude], False, False, False)
+        targetValuesDD1, targetPeriodDD1, targetHorizontalOrbitsDD1, targetVerticalOrbitsDD1 = targetSpectrumCreator.tbdy2018_spektra("DD1", targetSelectedVs30, [targetLatitude, targetLongitude], True, True, True)
+        targetValuesDD2, targetPeriodDD2, targetHorizontalOrbitsDD2, targetVerticalOrbitsDD2 = targetSpectrumCreator.tbdy2018_spektra("DD2", targetSelectedVs30, [targetLatitude, targetLongitude], True, True, True)
         
         if targetOrdinate == 'Yatay':
 
