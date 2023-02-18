@@ -6,8 +6,6 @@ import targetSpectrumCreator
 import numpy as np
 from ascReader import ascReader
 from st_pages import show_pages_from_config
-import folium as fl
-from streamlit_folium import st_folium
 
 st.set_page_config("Kahramanmaraş Depremi Verileri 2023", layout='wide')
 
