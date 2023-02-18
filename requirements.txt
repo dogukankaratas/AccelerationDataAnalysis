@@ -8,3 +8,4 @@ openpyxl==3.0.10
 matplotlib==3.6.1
 matplotlib-inline==0.1.6
 st-pages==0.3.1
+folium==0.14.0
