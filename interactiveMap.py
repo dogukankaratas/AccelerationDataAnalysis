@@ -9,6 +9,8 @@ from st_pages import show_pages_from_config
 
 st.set_page_config("Kahramanmaraş Depremi Verileri 2023", layout='wide')
 
+st.success("Tüm interaktif uygulamalar [SeisKit](https://seiskit.streamlit.app/) sitesinde bulunabilir.", icon="✅")
+
 st.title("Kahramanmaraş Depremi Verileri 2023")
 show_pages_from_config()
 
@@ -23,7 +25,6 @@ with st.sidebar:
     st.markdown("**Referans**")
     st.markdown("[Doğukan Karataş, 2023, Development of Ground Motion Selection and Scaling Framework Compatible with TBEC-2018 (Under Review),\
                  Earthquake and Structural Engineering MSc Dissertation](https://github.com/dogukankaratas/scalepy/blob/main/Development%20of%20Ground%20Motion%20Selection%20and%20Scaling%20Framework%20Compatible%20with%20TBEC-2018%20(Under%20Review).pdf)")
-    st.success("v1.0.4", icon="✅")
 
 targetSpectrumTab, firstEqTab, secondEqTab = st.tabs(["TBDY-2018 Hedef Spektrum",
                                    "06.02.2023 01:17:32 Pazarcık (Kahramanmaraş) Earthquake MW 7.7",
@@ -771,169 +772,4 @@ with secondEqTab:
         st.plotly_chart(defaultFigVer)
         
 with targetSpectrumTab:
-    st.markdown("## TBDY-2018 Hedef Spektrum")
-
-    targetInputCol, targetGraphCol = st.columns([0.8, 2])
-    # default empty figure
-    defaultTargetFig = go.Figure()
-    defaultTargetFig.update_xaxes(
-        title_text = 'Period (sec)',
-        range=[0,4],
-        tickvals=np.arange(0,4.5,0.5),
-        dtick = 1,
-        showgrid = True,
-        zeroline=True,
-        zerolinewidth=1
-    )
-
-    defaultTargetFig.update_yaxes(
-        title_text = 'pSa (g)',
-        range=[0,3],
-        showgrid = True,
-        zeroline=True,
-        zerolinewidth=1
-    )
-
-    defaultTargetFig.update_layout(showlegend=False, template=None, paper_bgcolor = "white", width=1000,height=570, title_text='Hedef Spektrum', title_x=0.5, legend=dict(
-        yanchor="top",
-        x = 1,
-        xanchor="right"
-        ))
-
-    with targetInputCol:
-        with st.form("locationForm"):
-            targetLatitude = st.number_input("Enlem", 34.25, 42.95, 36.0, 0.5)
-            targetLongitude = st.number_input("Boylam", 24.55, 45.95, 42.0, 0.5)
-            targetIntensity = st.selectbox("Yer Hareketi Düzeyi", ["DD1", "DD2", "DD3", "DD4"], 1)
-            targetSoil = st.selectbox('Zemin Sınıfı', ('ZA', 'ZB', 'ZC', 'ZD', 'ZE'), 2)
-            targetOrdinate = st.selectbox('Spektrum Yönü', ('Yatay', 'Düşey'), 0)
-            targetCreateButton = st.form_submit_button("Oluştur")
-
-    if targetSoil == "ZA":
-        targetSelectedVs30 = 1600
-    elif targetSoil == "ZB":
-        targetSelectedVs30 = 900
-    elif targetSoil == "ZC":
-        targetSelectedVs30 = 500
-    elif targetSoil == "ZD":
-        targetSelectedVs30 = 250
-    elif targetSoil == "ZE":
-        targetSelectedVs30 = 100
-
-    targetValuesDD1 = {}
-    targetValuesDD2 = {}
-
-    if targetCreateButton:
-        targetValuesDD1, targetPeriodDD1, targetHorizontalOrbitsDD1, targetVerticalOrbitsDD1 = targetSpectrumCreator.tbdy2018_spektra("DD1", targetSelectedVs30, [targetLatitude, targetLongitude], True, True, True)
-        targetValuesDD2, targetPeriodDD2, targetHorizontalOrbitsDD2, targetVerticalOrbitsDD2 = targetSpectrumCreator.tbdy2018_spektra("DD2", targetSelectedVs30, [targetLatitude, targetLongitude], True, True, True)
-        
-        if targetOrdinate == 'Yatay':
-
-            @st.experimental_memo
-            def convert_df(df):
-                return df.to_csv(index=False).encode('utf-8')
-
-            fileTargetDD1 = pd.DataFrame(columns=['T', 'Sa'])
-            fileTargetDD1['T'] = targetPeriodDD1
-            fileTargetDD1['Sa'] = targetHorizontalOrbitsDD1
-
-            fileTargetDD2 = pd.DataFrame(columns=['T', 'Sa'])
-            fileTargetDD2['T'] = targetPeriodDD2
-            fileTargetDD2['Sa'] = targetHorizontalOrbitsDD2
-
-            dd1csv = convert_df(fileTargetDD1)
-            dd2csv = convert_df(fileTargetDD2)
-
-            with targetInputCol:
-                st.download_button("Yatay Elastik Tepki Spektrumu DD1 İndir", dd1csv, 'hedefSpektrumYatayDD1.csv')
-                st.download_button("Yatay Elastik Tepki Spektrumu DD2 İndir", dd2csv, 'hedefSpektrumYatayDD2.csv')
-
-        elif targetOrdinate == 'Düşey':
-
-            @st.experimental_memo
-            def convert_df(df):
-                return df.to_csv(index=False).encode('utf-8')
-
-            fileTargetVerDD1 = pd.DataFrame(columns=['T', 'Sad'])
-            fileTargetVerDD1['T'] = targetPeriodDD1
-            fileTargetVerDD1['Sad'] = targetHorizontalOrbitsDD1
-
-            fileTargetVerDD2 = pd.DataFrame(columns=['T', 'Sad'])
-            fileTargetVerDD2['T'] = targetPeriodDD2
-            fileTargetVerDD2['Sad'] = targetHorizontalOrbitsDD2
-
-            dd1vercsv = convert_df(fileTargetVerDD1)
-            dd2vercsv = convert_df(fileTargetVerDD2)
-
-            with targetInputCol:
-                st.download_button("Düşey Elastik Tepki Spektrumu DD1 İndir", dd1vercsv, 'hedefSpektrumDüseyDD1.csv')
-                st.download_button("Düşey Elastik Tepki Spektrumu DD2 İndir", dd2vercsv, 'hedefSpektrumDüseyDD2.csv')
-
-
-        maxgTarget = max(max(targetHorizontalOrbitsDD1), max(targetVerticalOrbitsDD1))
-
-        defaultTargetFig = go.Figure()
-
-        if targetOrdinate == 'Yatay':
-
-            defaultTargetFig.add_trace(go.Scatter(
-                x = targetPeriodDD1,
-                y = targetHorizontalOrbitsDD1,
-                name = 'DD1 Hedef Spektrum',
-                line=dict(color='red')
-            ))
-
-            defaultTargetFig.add_trace(go.Scatter(
-                x = targetPeriodDD2,
-                y = targetHorizontalOrbitsDD2,
-                name = 'DD2 Hedef Spektrum',
-                line=dict(color='green')
-            ))
-
-        if targetOrdinate == 'Düşey':
-
-            defaultTargetFig.add_trace(go.Scatter(
-                x = targetPeriodDD1,
-                y = targetVerticalOrbitsDD1,
-                name = 'DD1 Hedef Spektrum',
-                line=dict(color='red')
-            ))
-
-            defaultTargetFig.add_trace(go.Scatter(
-                x = targetPeriodDD2,
-                y = targetVerticalOrbitsDD2,
-                name = 'DD2 Hedef Spektrum',
-                line=dict(color='green')
-            ))
-
-        defaultTargetFig.update_xaxes(
-            title_text = 'Period (sec)',
-            range=[0,3],
-            tickvals=np.arange(0,3.5,0.5),
-            dtick = 1,
-            showgrid = True,
-            zeroline=True,
-            zerolinewidth=1
-        )
-
-        defaultTargetFig.update_yaxes(
-            title_text = 'pSa (g)',
-            range=[0,round(maxgTarget, 0) + 0.5],
-            showgrid = True,
-            zeroline=True,
-            zerolinewidth=1
-        )
-
-        defaultTargetFig.update_layout(showlegend=True, template=None, paper_bgcolor = "white", width=1000,height=570, title_text='Hedef Spektrum', title_x=0.5, legend=dict(
-            yanchor="top",
-            x = 1,
-            xanchor="right"
-            ))
-
-    with targetGraphCol:
-        st.plotly_chart(defaultTargetFig)
-
-        if targetIntensity == "DD1":
-            st.write(targetValuesDD1)
-        elif targetIntensity == "DD2":
-            st.write(targetValuesDD2)
+    st.markdown("# Bu uygulama [SeisKit](https://seiskit.streamlit.app/) sitesine taşınmıştır.")

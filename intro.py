@@ -3,6 +3,8 @@ from st_pages import show_pages_from_config, add_page_title
 
 show_pages_from_config()
 
+st.success("Tüm interaktif uygulamalar [SeisKit](https://seiskit.streamlit.app/) sitesinde bulunabilir.", icon="✅")
+
 with st.sidebar:
     st.info("Tüm veriler 10.02.2023 tarihinde AFAD veritabanından ham olarak elde edilmiştir. \
     Bu aracın herhangi bir ticari amacı olmayıp, araştırmacılar ve mühendisler için bilgi amaçlı oluşturulmuştur.", icon="ℹ️")
@@ -14,7 +16,6 @@ with st.sidebar:
     st.markdown("**Referans**")
     st.markdown("[Doğukan Karataş, 2023, Development of Ground Motion Selection and Scaling Framework Compatible with TBEC-2018 (Under Review),\
                  Earthquake and Structural Engineering MSc Dissertation](https://github.com/dogukankaratas/scalepy/blob/main/Development%20of%20Ground%20Motion%20Selection%20and%20Scaling%20Framework%20Compatible%20with%20TBEC-2018%20(Under%20Review).pdf)")
-    st.success("v1.0.4", icon="✅")
 
 st.markdown("# Kahramanmaraş Deprem Verilerinin İncelenmesi")
 st.markdown("Bu açık kaynak projesinde 6 Şubat tarihinde Pazarcık ve \
